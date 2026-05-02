@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "buildCommand": "echo 'Static Build'",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
+    }
+  ]
+}

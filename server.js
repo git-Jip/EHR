@@ -28,7 +28,14 @@ const CSV_FILE = getDataFilePath('users.csv');
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(express.static(__dirname));
+
+// Serve static files from the root
+const rootPath = isVercel ? process.cwd() : __dirname;
+app.use(express.static(rootPath));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(rootPath, 'index.html'));
+});
 
 
 app.post('/api', (req, res) => {

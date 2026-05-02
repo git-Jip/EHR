@@ -2,8 +2,8 @@
   "name": "patientinfo",
   "version": "1.0.0",
   "description": "",
+  "main": "server.js",
   "scripts": {
-    "build": "echo 'Static Build'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

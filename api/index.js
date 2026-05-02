@@ -11,7 +11,7 @@ const getDataFilePath = (filename) => {
     if (isVercel) {
         const tmpPath = path.join('/tmp', filename);
         if (!fs.existsSync(tmpPath)) {
-            const srcPath = path.join(__dirname, filename);
+            const srcPath = path.join(__dirname, '..', filename);
             if (fs.existsSync(srcPath)) {
                 fs.copyFileSync(srcPath, tmpPath);
             } else {
@@ -20,7 +20,7 @@ const getDataFilePath = (filename) => {
         }
         return tmpPath;
     }
-    return path.join(__dirname, filename);
+    return path.join(__dirname, '..', filename);
 };
 
 const CSV_FILE = getDataFilePath('users.csv');
@@ -28,11 +28,6 @@ const CSV_FILE = getDataFilePath('users.csv');
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(express.static(__dirname));
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
 
 // Ensure users CSV exists with header
 if (!fs.existsSync(CSV_FILE)) {

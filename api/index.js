@@ -29,6 +29,10 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+if (!isVercel) {
+    app.use(express.static(path.join(__dirname, '..', 'public')));
+}
+
 // Ensure users CSV exists with header
 if (!fs.existsSync(CSV_FILE)) {
     fs.writeFileSync(CSV_FILE, "Login ID,Password\n");

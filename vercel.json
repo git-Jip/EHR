@@ -1,5 +1,10 @@
 {
   "version": 2,
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "*.{csv,json}"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",

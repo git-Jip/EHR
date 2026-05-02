@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - Lifeline Medical Center</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .image-preview-container {
+            margin-top: 10px;
+            max-width: 100%;
+            display: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            background: #f9f9f9;
+        }
+        .image-preview-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        .imaging-panel {
+            margin-bottom: 20px; 
+            padding: 15px; 
+            border: 2px solid var(--navy-blue); 
+            border-radius: 8px; 
+            background-color: #fcfcfc;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-layout">
+    <header class="app-header">
+        <div class="header-left">
+            <img src="icon/logo.png" class="header-avatar-small"></img>
+            <h1>Lifeline Medical Center</h1>
+        </div>
+        <div class="header-right dropdown-container">
+            <div class="profile-icon" id="profile-btn">👤</div>
+            <div class="dropdown-menu" id="profile-dropdown">
+                <div class="dropdown-header">
+                    <strong id="dropdown-username">User</strong>
+                    <div id="dropdown-email" class="dropdown-email-text">user@example.com</div>
+                </div>
+                <hr>
+                <a href="profile.html" class="dropdown-item">👤 Profile</a>
+                <a href="#" id="logout-btn" class="dropdown-item text-danger">🚪 Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <div class="dash-title-wrapper">
+            <div>
+                 <h1 class="page-title">Clinical Documentation System</h1>
+                 <p class="page-subtitle" id="dash-patient-subtitle" style="margin-bottom: 0;">Patient: Loading...</p>
+            </div>
+            <a href="patientList.html" class="btn-add-client" style="padding: 8px 25px;">Change Patient</a>
+        </div>
+
+        <div class="dashboard-layout" style="display: flex;">
+            <div class="sidebar">
+                <a href="patientDashboard.html">Demographics</a>
+                <a href="medicalHistory.html">Medical History</a>
+                <a href="flowsheet.html">Flowsheet</a>
+                <a href="results.html" class="active">Results</a>
+                <a href="mar.html">MAR</a>
+                <a href="careplan.html">Care Plan</a>
+                <a href="navigator.html">Navigator</a>
+            </div>
+            
+            <div style="padding-left: 40px; color: var(--text-primary); flex: 1;">
+                 <div class="demo-main-container">
+                     <h2 style="margin-bottom: 20px; font-size: 1.35rem; color: var(--navy-blue);">
+                        <span style="font-size: 1.5rem; margin-right: 10px; vertical-align: middle;">🔬</span>Results
+                     </h2>
+                     
+                     <div class="tabs-header">
+                         <button class="tab-btn active" data-tab="laboratory">Laboratory</button>
+                         <button class="tab-btn" data-tab="imaging-ecg">Imaging/ECG</button>
+                     </div>
+
+                     <!-- Laboratory -->
+                     <div class="tab-content active" id="laboratory">
+                         <div style="text-align: right; margin-bottom: 15px;">
+                             <button type="button" class="btn-small-add" id="add-lab-btn" style="display: none;">+ Add Result</button>
+                         </div>
+                         <div class="scrollable-table-container">
+                             <table class="demo-table">
+                                 <thead>
+                                     <tr>
+                                         <th>Test</th>
+                                         <th>Value</th>
+                                         <th>Unit</th>
+                                         <th>Reference Range</th>
+                                         <th style="width: 50px;"></th>
+                                     </tr>
+                                 </thead>
+                                 <tbody id="laboratory-list">
+                                     <!-- Dynamic rows -->
+                                 </tbody>
+                             </table>
+                         </div>
+                         <div style="text-align: right; margin-top: 20px;">
+                             <button type="button" id="edit-lab" class="btn-add-client" style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
+                             <button type="button" id="cancel-lab" class="btn-add-client" style="background-color: #95a5a6; margin-right: 10px; display: none;">❌ Cancel</button>
+                             <button type="button" class="btn-add-client" id="save-lab" style="background-color: var(--navy-blue); display: none;">💾 Save</button>
+                         </div>
+                     </div>
+
+                     <!-- Imaging/ECG -->
+                     <div class="tab-content" id="imaging-ecg">
+                         <div style="text-align: right; margin-bottom: 15px;">
+                             <button type="button" class="btn-small-add" id="add-imaging-btn" style="display: none;">+ Add Imaging</button>
+                         </div>
+                         
+                         <div id="imaging-list" style="margin-bottom: 20px;">
+                            <!-- Dynamic Imaging Panels -->
+                         </div>
+                         
+                         <div style="text-align: right; margin-top: 20px;">
+                             <button type="button" id="edit-imaging" class="btn-add-client" style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
+                             <button type="button" id="cancel-imaging" class="btn-add-client" style="background-color: #95a5a6; margin-right: 10px; display: none;">❌ Cancel</button>
+                             <button type="button" class="btn-add-client" id="save-imaging" style="background-color: var(--navy-blue); display: none;">💾 Save</button>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+        <div class="footer-left">
+            <img src="icon/logo.png" class="footer-avatar-small"></img>
+            <div class="footer-brand">
+                <h4>Lifeline</h4>
+                <span>&copy; 2026 Lifeline Medical Center.</span>
+                <span>All rights reserved.</span>
+            </div>
+        </div>
+
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="helpCenter.html">Help Center</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contactSupport.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="aboutUs.html">About Us</a></li>
+                    <li><a href="companyProfile.html">Company Profile</a></li>
+                    <li><a href="terms.html">Terms &amp; Condition</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="patient.js"></script>
+<script src="profile-dropdown.js"></script>
+<script src="results.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const pageName = window.location.pathname.split('/').pop() || 'default';
+
+    const savedTab = localStorage.getItem(`activeTab_${pageName}`);
+    if (savedTab) {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        const targetBtn = Array.from(tabBtns).find(b => b.getAttribute('data-tab') === savedTab);
+        const targetContent = document.getElementById(savedTab);
+        if (targetBtn && targetContent) {
+            targetBtn.classList.add('active');
+            targetContent.classList.add('active');
+        } else if (tabBtns[0] && tabContents[0]) {
+            tabBtns[0].classList.add('active');
+            tabContents[0].classList.add('active');
+        }
+    }
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked button
+            btn.classList.add('active');
+
+            // Show corresponding content
+            const targetId = btn.getAttribute('data-tab');
+            localStorage.setItem(`activeTab_${pageName}`, targetId);
+            const targetContent = document.getElementById(targetId);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

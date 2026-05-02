@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - Lifeline Medical Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-layout">
+        <header class="app-header">
+            <div class="header-left">
+                <img src="icon/logo.png" class="header-avatar-small"></img>
+                <h1>Lifeline Medical Center</h1>
+            </div>
+            <div class="header-right dropdown-container">
+                <div class="profile-icon" id="profile-btn">👤</div>
+                <div class="dropdown-menu" id="profile-dropdown">
+                    <div class="dropdown-header">
+                        <strong id="dropdown-username">User</strong>
+                        <div id="dropdown-email" class="dropdown-email-text">user@example.com</div>
+                    </div>
+                    <hr>
+                    <a href="profile.html" class="dropdown-item">👤 Profile</a>
+                    <a href="#" id="logout-btn" class="dropdown-item text-danger">🚪 Logout</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="content-wrapper">
+            <div class="dash-title-wrapper">
+                <div>
+                    <h1 class="page-title">Clinical Documentation System</h1>
+                    <p class="page-subtitle" id="dash-patient-subtitle" style="margin-bottom: 0;">Patient: Loading...
+                    </p>
+                </div>
+                <a href="patientList.html" class="btn-add-client" style="padding: 8px 25px;">Change Patient</a>
+            </div>
+
+            <div class="dashboard-layout" style="display: flex;">
+                <div class="sidebar">
+                    <a href="patientDashboard.html">Demographics</a>
+                    <a href="medicalHistory.html">Medical History</a>
+                    <a href="flowsheet.html" class="active">Flowsheet</a>
+                    <a href="results.html">Results</a>
+                    <a href="mar.html">MAR</a>
+                    <a href="careplan.html">Care Plan</a>
+                    <a href="navigator.html">Navigator</a>
+                </div>
+
+                <div style="padding-left: 40px; color: var(--text-primary); flex: 1;">
+                    <div class="demo-main-container">
+                        <h2 style="margin-bottom: 20px; font-size: 1.35rem; color: var(--navy-blue);">
+                            <span
+                                style="font-size: 1.5rem; margin-right: 10px; vertical-align: middle;">📋</span>Flowsheet
+                        </h2>
+
+                        <div class="tabs-header">
+                            <button class="tab-btn active" data-tab="vital-signs">Vital Signs</button>
+                            <button class="tab-btn" data-tab="intake-output">Intake & Output</button>
+                            <button class="tab-btn" data-tab="head-to-toe">Head-to-Toe</button>
+                            <button class="tab-btn" data-tab="systems">Systems</button>
+                        </div>
+
+                        <!-- Vital Signs -->
+                        <div class="tab-content active" id="vital-signs">
+                            <div style="text-align: right; margin-bottom: 15px;">
+                                <button type="button" class="btn-small-add" id="add-vitals-btn" style="display: none;">+
+                                    Add Row</button>
+                            </div>
+                            <div class="scrollable-table-container">
+                                <table class="demo-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Temp</th>
+                                            <th>BP (mmHg)</th>
+                                            <th>HR (bpm)</th>
+                                            <th>RR (bpm)</th>
+                                            <th>SpO2 (%)</th>
+                                            <th>Pain (0-10)</th>
+                                            <th style="width: 50px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="vital-signs-list">
+                                        <!-- Dynamic rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="text-align: right; margin-top: 20px;">
+                                <button type="button" id="edit-vital-signs" class="btn-add-client"
+                                    style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
+                                <button type="button" id="cancel-vital-signs" class="btn-add-client"
+                                    style="background-color: #95a5a6; margin-right: 10px; display: none;">❌
+                                    Cancel</button>
+                                <button type="button" class="btn-add-client" id="save-vital-signs"
+                                    style="background-color: var(--navy-blue); display: none;">💾 Save</button>
+                            </div>
+                        </div>
+
+                        <!-- Intake & Output -->
+                        <div class="tab-content" id="intake-output">
+                            <div class="demo-panel">
+                                <div class="demo-panel-header"
+                                    style="justify-content: space-between; display: flex; align-items: center; margin-bottom: 10px;">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">Intake
+                                    </h3>
+                                    <button type="button" class="btn-small-add" id="add-intake-btn"
+                                        style="display: none;">+ Add</button>
+                                </div>
+                                <div class="scrollable-table-container" style="margin-bottom: 20px;">
+                                    <table class="demo-table" style="box-shadow: none;">
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Type</th>
+                                                <th>Description</th>
+                                                <th>Amount (mL)</th>
+                                                <th style="width: 50px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="intake-list">
+                                            <!-- Dynamic rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="demo-panel">
+                                <div class="demo-panel-header"
+                                    style="justify-content: space-between; display: flex; align-items: center; margin-bottom: 10px;">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">Output
+                                    </h3>
+                                    <button type="button" class="btn-small-add" id="add-output-btn"
+                                        style="display: none;">Edit</button>
+                                </div>
+                                <div class="scrollable-table-container">
+                                    <table class="demo-table" style="box-shadow: none;">
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Type</th>
+                                                <th>Description</th>
+                                                <th>Amount (mL)</th>
+                                                <th style="width: 50px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="output-list">
+                                            <!-- Dynamic rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div style="text-align: right; margin-top: 20px;">
+                                <button type="button" id="edit-intake-output" class="btn-add-client"
+                                    style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
+                                <button type="button" id="cancel-intake-output" class="btn-add-client"
+                                    style="background-color: #95a5a6; margin-right: 10px; display: none;">❌
+                                    Cancel</button>
+                                <button type="button" class="btn-add-client" id="save-intake-output"
+                                    style="background-color: var(--navy-blue); display: none;">💾 Save</button>
+                            </div>
+                        </div>
+
+                        <!-- Head-to-Toe -->
+                        <div class="tab-content" id="head-to-toe">
+                            <div class="demo-panel">
+                                <div class="demo-panel-header">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">General
+                                        Survey</h3>
+                                </div>
+                                <div class="input-grid-2">
+                                    <div class="form-field"><label>General Appearance</label><input type="text"
+                                            id="htt-generalApp"></div>
+                                    <div class="form-field"><label>Level of Consciousness</label><input type="text"
+                                            id="htt-loc"></div>
+                                    <div class="form-field"><label>Behavior & Affect</label><input type="text"
+                                            id="htt-behavior"></div>
+                                    <div class="form-field"><label>Apparent Distress</label><input type="text"
+                                            id="htt-distress"></div>
+                                </div>
+                            </div>
+
+                            <div class="demo-panel">
+                                <div class="demo-panel-header">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">Skin,
+                                        Hair, & Nails</h3>
+                                </div>
+                                <div class="input-grid-2">
+                                    <div class="form-field"><label>Skin Color/Tone</label><input type="text"
+                                            id="htt-skinColor"></div>
+                                    <div class="form-field"><label>Skin Turgor</label><input type="text"
+                                            id="htt-skinTurgor"></div>
+                                    <div class="form-field"><label>Skin Integrity</label><input type="text"
+                                            id="htt-skinIntegrity"></div>
+                                    <div class="form-field"><label>Wounds / Lesions</label><input type="text"
+                                            id="htt-wounds"></div>
+                                    <div class="form-field"><label>Hair Condition</label><input type="text"
+                                            id="htt-hair"></div>
+                                    <div class="form-field"><label>Nails (color, capillary refill)</label><input
+                                            type="text" id="htt-nails"></div>
+                                </div>
+                            </div>
+
+                            <div class="demo-panel">
+                                <div class="demo-panel-header">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">Ears</h3>
+                                </div>
+                                <div class="input-grid-2">
+                                    <div class="form-field"><label>Ear Canal/Tympanic Membrane</label><input type="text"
+                                            id="htt-earCanal"></div>
+                                    <div class="form-field"><label>Hearing</label><input type="text" id="htt-hearing">
+                                    </div>
+                                    <div class="form-field"><label>Discharge</label><input type="text"
+                                            id="htt-earDischarge"></div>
+                                </div>
+                            </div>
+
+                            <div class="demo-panel">
+                                <div class="demo-panel-header">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">Neck</h3>
+                                </div>
+                                <div class="input-grid-2">
+                                    <div class="form-field"><label>Lymph Nodes</label><input type="text"
+                                            id="htt-lymphNodes"></div>
+                                    <div class="form-field"><label>JVD</label><input type="text" id="htt-jvd"></div>
+                                    <div class="form-field"><label>Thyroid</label><input type="text" id="htt-thyroid">
+                                    </div>
+                                    <div class="form-field"><label>Range of Motion</label><input type="text"
+                                            id="htt-rom"></div>
+                                </div>
+                            </div>
+
+                            <div class="demo-panel">
+                                <div class="demo-panel-header">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">Mouth &
+                                        Throat</h3>
+                                </div>
+                                <div class="input-grid-2">
+                                    <div class="form-field"><label>Lips & Mucous Membranes</label><input type="text"
+                                            id="htt-lips"></div>
+                                    <div class="form-field"><label>Teeth & Gums</label><input type="text"
+                                            id="htt-teeth"></div>
+                                    <div class="form-field"><label>Tongue</label><input type="text" id="htt-tongue">
+                                    </div>
+                                    <div class="form-field"><label>Throat/Tonsils</label><input type="text"
+                                            id="htt-throat"></div>
+                                </div>
+                            </div>
+
+                            <div style="text-align: right; margin-top: 20px;">
+                                <button type="button" id="edit-head-to-toe" class="btn-add-client"
+                                    style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
+                                <button type="button" id="cancel-head-to-toe" class="btn-add-client"
+                                    style="background-color: #95a5a6; margin-right: 10px; display: none;">❌
+                                    Cancel</button>
+                                <button type="button" class="btn-add-client" id="save-head-to-toe"
+                                    style="background-color: var(--navy-blue); display: none;">💾 Save</button>
+                            </div>
+                        </div>
+
+                        <!-- Systems -->
+                        <div class="tab-content" id="systems">
+                            <div class="demo-panel">
+                                <div class="demo-panel-header"
+                                    style="display:flex; justify-content:space-between; align-items:center;">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">
+                                        Respiratory Assessment</h3>
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <label style="font-size:0.9rem; font-weight:600; color:var(--navy-blue);">Date &
+                                            Time:</label>
+                                        <input type="datetime-local" id="resp-datetime"
+                                            style="border: 1px solid var(--navy-blue); border-radius: 4px; padding: 4px; outline:none; font-family:inherit;">
+                                    </div>
+                                </div>
+
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 15px;">
+
+                                    <!-- Column 1: Vitals & Symptoms -->
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Vitals & Symptoms</h4>
+
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Resp Rate (bpm):</label>
+                                            <input type="number" id="resp-rr"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">SpO2 (%):</label>
+                                            <input type="number" id="resp-spo2"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Pulse (bpm):</label>
+                                            <input type="number" id="resp-hr"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+
+                                        <label
+                                            style="font-weight: 600; color: var(--navy-blue); display:block; margin-bottom: 8px;">Reported
+                                            Symptoms</label>
+                                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="resp-of-fever" style="width:16px; height:16px;">
+                                                Fever</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="resp-of-sob" style="width:16px; height:16px;">
+                                                Shortness of breath</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="resp-of-cp" style="width:16px; height:16px;">
+                                                Chest pain</label>
+                                        </div>
+                                        <div style="margin-top: 10px; display: flex; align-items:center; gap: 8px;">
+                                            <label style="font-size:0.85rem; font-weight:500;">Other:</label>
+                                            <input type="text" id="resp-of-other"
+                                                style="flex:1; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 2: Physical Observation -->
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Physical Observation</h4>
+
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Breathing
+                                                Pattern</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-bp-norm"
+                                                        style="width:16px; height:16px;"> Normal</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-bp-rapid"
+                                                        style="width:16px; height:16px;"> Tachypnea (Rapid)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-bp-slow"
+                                                        style="width:16px; height:16px;"> Bradypnea (Slow)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-bp-irreg"
+                                                        style="width:16px; height:16px;"> Irregular</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-bp-labor"
+                                                        style="width:16px; height:16px;"> Labored</label>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Chest
+                                                Movement</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-cm-sym"
+                                                        style="width:16px; height:16px;"> Symmetrical</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-cm-unequal"
+                                                        style="width:16px; height:16px;"> Unequal</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-cm-retract"
+                                                        style="width:16px; height:16px;"> Retractions present</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 3: Auscultation & Cough -->
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Auscultation & Cough</h4>
+
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Breath
+                                                Sounds</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-bs-clear"
+                                                        style="width:16px; height:16px;"> Clear</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-bs-wheeze"
+                                                        style="width:16px; height:16px;"> Wheezing</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-bs-crack"
+                                                        style="width:16px; height:16px;"> Crackles</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-bs-dim"
+                                                        style="width:16px; height:16px;"> Diminished</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-bs-stridor"
+                                                        style="width:16px; height:16px;"> Stridor</label>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Cough</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-c-none"
+                                                        style="width:16px; height:16px;"> None</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-c-dry"
+                                                        style="width:16px; height:16px;"> Dry</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-c-prod"
+                                                        style="width:16px; height:16px;"> Productive (mucus)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="resp-c-freq"
+                                                        style="width:16px; height:16px;"> Frequent</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Narrative Section -->
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                                    <div>
+                                        <label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Assessment
+                                            Findings:</label>
+                                        <textarea id="resp-findings" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                    <div>
+                                        <label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Intervention
+                                            / Action Taken:</label>
+                                        <textarea id="resp-intervention" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 15px;">
+                                    <label
+                                        style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Doctor
+                                        Notes:</label>
+                                    <textarea id="resp-docnotes" rows="2"
+                                        style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                </div>
+                            </div>
+
+
+                            <!-- CARDIOVASCULAR -->
+                            <div class="demo-panel">
+                                <div class="demo-panel-header"
+                                    style="display:flex; justify-content:space-between; align-items:center;">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">
+                                        Cardiovascular Assessment</h3>
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <label style="font-size:0.9rem; font-weight:600; color:var(--navy-blue);">Date &
+                                            Time:</label>
+                                        <input type="datetime-local" id="cardio-datetime"
+                                            style="border: 1px solid var(--navy-blue); border-radius: 4px; padding: 4px; outline:none; font-family:inherit;">
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 15px;">
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Vitals & Symptoms</h4>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Temp:</label>
+                                            <input type="number" id="cardio-temp"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Weight:</label>
+                                            <input type="number" id="cardio-weight"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Blood Pressure:</label>
+                                            <input type="text" id="cardio-bp"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Pain Score:</label>
+                                            <input type="number" id="cardio-pain"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <label
+                                            style="font-weight: 600; color: var(--navy-blue); display:block; margin-bottom: 8px;">Other
+                                            Findings / Notes</label>
+                                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="cardio-of-gen" style="width:16px; height:16px;">
+                                                Gen Appearance (Extremities)</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="cardio-of-life"
+                                                    style="width:16px; height:16px;"> Lifestyle</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="cardio-of-pmh" style="width:16px; height:16px;">
+                                                Past medical/family history</label>
+                                        </div>
+                                        <div style="margin-top: 10px; display: flex; align-items:center; gap: 8px;">
+                                            <label style="font-size:0.85rem; font-weight:500;">Other:</label>
+                                            <input type="text" id="cardio-of-other"
+                                                style="flex:1; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Heart Assessment</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Rhythm</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-r-reg"
+                                                        style="width:16px; height:16px;"> Regular</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-r-irreg"
+                                                        style="width:16px; height:16px;"> Irregular</label>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Heart
+                                                Rate</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-hr-norm"
+                                                        style="width:16px; height:16px;"> Normal</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-hr-brady"
+                                                        style="width:16px; height:16px;"> Bradycardia</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-hr-tachy"
+                                                        style="width:16px; height:16px;"> Tachycardia</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-hr-arryth"
+                                                        style="width:16px; height:16px;"> Arrythmias</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Heart
+                                                Sounds</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-hs-norm"
+                                                        style="width:16px; height:16px;"> Normal</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-hs-murmur"
+                                                        style="width:16px; height:16px;"> Murmurs</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-hs-abnorm"
+                                                        style="width:16px; height:16px;"> Abnormal</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Circulation</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Pulse</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-p-0"
+                                                        style="width:16px; height:16px;"> 0 (absent)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-p-1"
+                                                        style="width:16px; height:16px;"> 1+ (thready, weak)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-p-2"
+                                                        style="width:16px; height:16px;"> 2+ (strong, normal)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-p-3"
+                                                        style="width:16px; height:16px;"> 3+ (increased pulse)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-p-4"
+                                                        style="width:16px; height:16px;"> 4+ (bounding)</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Capillary
+                                                Refill</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="cardio-crt-norm"
+                                                        style="width:16px; height:16px;"> Normal (< 2 secs)</label>
+                                                        <label style="display:flex; align-items:center; gap:8px;"><input
+                                                                type="checkbox" id="cardio-crt-abnorm"
+                                                                style="width:16px; height:16px;"> Abnormal</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                                    <div><label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Assessment
+                                            Findings:</label><textarea id="cardio-findings" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                    <div><label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Intervention
+                                            / Action Taken:</label><textarea id="cardio-intervention" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;"><label
+                                        style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Doctor
+                                        Notes:</label><textarea id="cardio-docnotes" rows="2"
+                                        style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- GASTROINTESTINAL -->
+                            <div class="demo-panel">
+                                <div class="demo-panel-header"
+                                    style="display:flex; justify-content:space-between; align-items:center;">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">
+                                        Gastrointestinal Assessment</h3>
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <label style="font-size:0.9rem; font-weight:600; color:var(--navy-blue);">Date &
+                                            Time:</label>
+                                        <input type="datetime-local" id="gi-datetime"
+                                            style="border: 1px solid var(--navy-blue); border-radius: 4px; padding: 4px; outline:none; font-family:inherit;">
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 15px;">
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Vitals & Symptoms</h4>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Pain Score:</label>
+                                            <input type="number" id="gi-pain"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Abdominal Girth:</label>
+                                            <input type="text" id="gi-girth"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Last BM:</label>
+                                            <input type="text" id="gi-lbm"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Last Oral Intake:</label>
+                                            <input type="text" id="gi-loi"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <label
+                                            style="font-weight: 600; color: var(--navy-blue); display:block; margin-bottom: 8px;">Other
+                                            Findings / Notes</label>
+                                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="gi-of-nonv" style="width:16px; height:16px;"> No
+                                                nausea/vomiting</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="gi-of-appetite"
+                                                    style="width:16px; height:16px;"> Good appetite</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="gi-of-stool" style="width:16px; height:16px;">
+                                                Normal stool pattern</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="gi-of-nodc" style="width:16px; height:16px;"> No
+                                                diarrhea/constipation</label>
+                                        </div>
+                                        <div style="margin-top: 10px; display: flex; align-items:center; gap: 8px;">
+                                            <label style="font-size:0.85rem; font-weight:500;">Other:</label>
+                                            <input type="text" id="gi-of-other"
+                                                style="flex:1; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Inspection & Auscultation</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Inspection</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-i-flat" style="width:16px; height:16px;">
+                                                    Flat</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-i-round"
+                                                        style="width:16px; height:16px;"> Rounded</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-i-dist" style="width:16px; height:16px;">
+                                                    Distended</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-i-scaph"
+                                                        style="width:16px; height:16px;"> Scaphoid</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-i-sym" style="width:16px; height:16px;">
+                                                    Symmetric bilaterally</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-i-noscars"
+                                                        style="width:16px; height:16px;"> No scars or incisions</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-i-noperi"
+                                                        style="width:16px; height:16px;"> No visible peristalsis</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-i-skin" style="width:16px; height:16px;">
+                                                    Skin intact</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Auscultation</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-a-norm" style="width:16px; height:16px;">
+                                                    Normoactive in all quads</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-a-hyper"
+                                                        style="width:16px; height:16px;"> Hyperactive</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-a-hypo" style="width:16px; height:16px;">
+                                                    Hypoactive</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-a-absent"
+                                                        style="width:16px; height:16px;"> Absent</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-a-nobruit"
+                                                        style="width:16px; height:16px;"> No bruits auscultated</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Percussion & Palpation</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Percussion</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-pe-tymp"
+                                                        style="width:16px; height:16px;"> Tympany in all quads</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-pe-liv" style="width:16px; height:16px;">
+                                                    Normal liver dullness</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-pe-noshift"
+                                                        style="width:16px; height:16px;"> No shifting dullness</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Palpation</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-pa-soft"
+                                                        style="width:16px; height:16px;"> Soft, non-tender
+                                                    (light)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-pa-nomass"
+                                                        style="width:16px; height:16px;"> No masses (deep)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-pa-noguard"
+                                                        style="width:16px; height:16px;"> No guarding</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gi-pa-noreb"
+                                                        style="width:16px; height:16px;"> Negative rebound
+                                                    tender</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                                    <div><label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Assessment
+                                            Findings:</label><textarea id="gi-findings" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                    <div><label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Intervention
+                                            / Action Taken:</label><textarea id="gi-intervention" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;"><label
+                                        style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Doctor
+                                        Notes:</label><textarea id="gi-docnotes" rows="2"
+                                        style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- MARKER FOR NEXT SYSTEMS -->
+
+                            <!-- GENITOURINARY -->
+                            <div class="demo-panel">
+                                <div class="demo-panel-header"
+                                    style="display:flex; justify-content:space-between; align-items:center;">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">
+                                        Genitourinary Assessment</h3>
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <label style="font-size:0.9rem; font-weight:600; color:var(--navy-blue);">Date &
+                                            Time:</label>
+                                        <input type="datetime-local" id="gu-datetime"
+                                            style="border: 1px solid var(--navy-blue); border-radius: 4px; padding: 4px; outline:none; font-family:inherit;">
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 15px;">
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Vitals & Symptoms</h4>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Urine Output:</label>
+                                            <input type="text" id="gu-output"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Fluid Intake:</label>
+                                            <input type="text" id="gu-intake"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Specific Gravity:</label>
+                                            <input type="text" id="gu-sg"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <label
+                                            style="font-weight: 600; color: var(--navy-blue); display:block; margin-bottom: 8px;">Other
+                                            Symptoms</label>
+                                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="gu-os-fever" style="width:16px; height:16px;">
+                                                Fever</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="gu-os-nausea" style="width:16px; height:16px;">
+                                                Nausea / Vomiting</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="gu-os-bed" style="width:16px; height:16px;">
+                                                Bedwetting (children)</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="gu-os-itch" style="width:16px; height:16px;">
+                                                Itching in genital area</label>
+                                        </div>
+                                        <div style="margin-top: 10px; display: flex; align-items:center; gap: 8px;">
+                                            <label style="font-size:0.85rem; font-weight:500;">Other:</label>
+                                            <input type="text" id="gu-os-other"
+                                                style="flex:1; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Urine Characteristics</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Urination
+                                                Pattern</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-up-norm"
+                                                        style="width:16px; height:16px;"> Normal</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-up-freq"
+                                                        style="width:16px; height:16px;"> Frequent urination</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-up-pain"
+                                                        style="width:16px; height:16px;"> Painful (Dysuria)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-up-diff"
+                                                        style="width:16px; height:16px;"> Difficulty urinating</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-up-incont"
+                                                        style="width:16px; height:16px;"> Incontinence</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-up-unable"
+                                                        style="width:16px; height:16px;"> Unable to urinate</label>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; gap:10px;">
+                                            <div style="flex:1;">
+                                                <label
+                                                    style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Color</label>
+                                                <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                    <label style="display:flex; align-items:center; gap:8px;"><input
+                                                            type="checkbox" id="gu-uc-clear"
+                                                            style="width:16px; height:16px;"> Clear/Light</label>
+                                                    <label style="display:flex; align-items:center; gap:8px;"><input
+                                                            type="checkbox" id="gu-uc-dark"
+                                                            style="width:16px; height:16px;"> Dark Yellow</label>
+                                                    <label style="display:flex; align-items:center; gap:8px;"><input
+                                                            type="checkbox" id="gu-uc-cloudy"
+                                                            style="width:16px; height:16px;"> Cloudy</label>
+                                                    <label style="display:flex; align-items:center; gap:8px;"><input
+                                                            type="checkbox" id="gu-uc-red"
+                                                            style="width:16px; height:16px;"> Reddish/Blood</label>
+                                                    <label style="display:flex; align-items:center; gap:8px;"><input
+                                                            type="checkbox" id="gu-uc-brown"
+                                                            style="width:16px; height:16px;"> Brown</label>
+                                                </div>
+                                            </div>
+                                            <div style="flex:1;">
+                                                <label
+                                                    style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Odor
+                                                    & Amt</label>
+                                                <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                    <label style="display:flex; align-items:center; gap:8px;"><input
+                                                            type="checkbox" id="gu-uo-norm"
+                                                            style="width:16px; height:16px;"> Norm Odor</label>
+                                                    <label style="display:flex; align-items:center; gap:8px;"><input
+                                                            type="checkbox" id="gu-uo-foul"
+                                                            style="width:16px; height:16px;"> Foul/Strong Odor</label>
+                                                    <label
+                                                        style="display:flex; align-items:center; gap:8px; margin-top:8px;"><input
+                                                            type="checkbox" id="gu-ua-norm"
+                                                            style="width:16px; height:16px;"> Norm Amt</label>
+                                                    <label style="display:flex; align-items:center; gap:8px;"><input
+                                                            type="checkbox" id="gu-ua-dec"
+                                                            style="width:16px; height:16px;"> Decreased</label>
+                                                    <label style="display:flex; align-items:center; gap:8px;"><input
+                                                            type="checkbox" id="gu-ua-exc"
+                                                            style="width:16px; height:16px;"> Excessive</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Physical Observations</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Pain
+                                                or Discomfort</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-pd-none"
+                                                        style="width:16px; height:16px;"> None</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-pd-lower"
+                                                        style="width:16px; height:16px;"> Lower abdominal</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-pd-flank"
+                                                        style="width:16px; height:16px;"> Flank pain (back)</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-pd-burn"
+                                                        style="width:16px; height:16px;"> Burning sensation</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Genital
+                                                Observations</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-go-norm"
+                                                        style="width:16px; height:16px;"> Normal appearance</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-go-red" style="width:16px; height:16px;">
+                                                    Redness</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-go-swell"
+                                                        style="width:16px; height:16px;"> Swelling</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-go-rash"
+                                                        style="width:16px; height:16px;"> Rash / Irritation</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="gu-go-disch"
+                                                        style="width:16px; height:16px;"> Discharge Present</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                                    <div><label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Assessment
+                                            Findings:</label><textarea id="gu-findings" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                    <div><label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Intervention
+                                            / Action Taken:</label><textarea id="gu-intervention" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;"><label
+                                        style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Doctor
+                                        Notes:</label><textarea id="gu-docnotes" rows="2"
+                                        style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- MUSCULOSKELETAL -->
+                            <div class="demo-panel">
+                                <div class="demo-panel-header"
+                                    style="display:flex; justify-content:space-between; align-items:center;">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">
+                                        Musculoskeletal Assessment</h3>
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <label style="font-size:0.9rem; font-weight:600; color:var(--navy-blue);">Date &
+                                            Time:</label>
+                                        <input type="datetime-local" id="msk-datetime"
+                                            style="border: 1px solid var(--navy-blue); border-radius: 4px; padding: 4px; outline:none; font-family:inherit;">
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 15px;">
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Vitals & Symptoms</h4>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Grip Strength:</label>
+                                            <input type="text" id="msk-grip"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Joint Circumf.:</label>
+                                            <input type="text" id="msk-jc"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Limb Length:</label>
+                                            <input type="text" id="msk-ll"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <div class="form-field"
+                                            style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-direction:row;">
+                                            <label style="margin-bottom: 0; font-weight: 500;">Pain Score:</label>
+                                            <input type="number" id="msk-pain"
+                                                style="width: 80px; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                        <label
+                                            style="font-weight: 600; color: var(--navy-blue); display:block; margin-bottom: 8px;">Other
+                                            Findings</label>
+                                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="msk-of-gait" style="width:16px; height:16px;">
+                                                Gait/mobility impairment</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="msk-of-deform" style="width:16px; height:16px;">
+                                                Extremity/bone deformity</label>
+                                            <label style="display:flex; align-items:center; gap:8px;"><input
+                                                    type="checkbox" id="msk-of-frac" style="width:16px; height:16px;">
+                                                History of Fracture</label>
+                                        </div>
+                                        <div style="margin-top: 10px; display: flex; align-items:center; gap: 8px;">
+                                            <label style="font-size:0.85rem; font-weight:500;">Other:</label>
+                                            <input type="text" id="msk-of-other"
+                                                style="flex:1; border-radius: 4px; border: 1px solid #ccc; padding: 4px;">
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Muscles & Joints</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Muscle
+                                                Tone</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-mt-norm"
+                                                        style="width:16px; height:16px;"> Normal</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-mt-hypo"
+                                                        style="width:16px; height:16px;"> Hypotonia</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-mt-hyper"
+                                                        style="width:16px; height:16px;"> Hypertonia</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-mt-spast"
+                                                        style="width:16px; height:16px;"> Spasticity</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-mt-flac"
+                                                        style="width:16px; height:16px;"> Flaccidity</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Joint
+                                                Condition</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-jc-norm"
+                                                        style="width:16px; height:16px;"> Normal</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-jc-swell"
+                                                        style="width:16px; height:16px;"> Joint swelling</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-jc-tend"
+                                                        style="width:16px; height:16px;"> Joint tenderness</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-jc-red"
+                                                        style="width:16px; height:16px;"> Redness/warmth</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-jc-deform"
+                                                        style="width:16px; height:16px;"> Joint deformity</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Movement & Alignment</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Range
+                                                of Motion (ROM)</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-rom-full"
+                                                        style="width:16px; height:16px;"> Full ROM</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-rom-lim"
+                                                        style="width:16px; height:16px;"> Limited ROM</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-rom-pain"
+                                                        style="width:16px; height:16px;"> Pain during movement</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-rom-stiff"
+                                                        style="width:16px; height:16px;"> Stiffness</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-rom-cont"
+                                                        style="width:16px; height:16px;"> Contracture present</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Posture
+                                                / Alignment</label>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-pa-norm"
+                                                        style="width:16px; height:16px;"> Normal</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-pa-poor"
+                                                        style="width:16px; height:16px;"> Poor posture</label>
+                                                <label style="display:flex; align-items:center; gap:8px;"><input
+                                                        type="checkbox" id="msk-pa-spine"
+                                                        style="width:16px; height:16px;"> Spinal curvature</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                                    <div><label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Assessment
+                                            Findings:</label><textarea id="msk-findings" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                    <div><label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Intervention
+                                            / Action Taken:</label><textarea id="msk-intervention" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;"><label
+                                        style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Doctor
+                                        Notes:</label><textarea id="msk-docnotes" rows="2"
+                                        style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- NEUROLOGICAL -->
+                            <div class="demo-panel">
+                                <div class="demo-panel-header"
+                                    style="display:flex; justify-content:space-between; align-items:center;">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">
+                                        Neurological Assessment</h3>
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <label style="font-size:0.9rem; font-weight:600; color:var(--navy-blue);">Date &
+                                            Time:</label>
+                                        <input type="datetime-local" id="neuro-datetime"
+                                            style="border: 1px solid var(--navy-blue); border-radius: 4px; padding: 4px; outline:none; font-family:inherit;">
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin-top: 15px;">
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Consciousness & GCS</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Level
+                                                of Consciousness</label>
+                                            <div style="display: flex; flex-wrap:wrap; gap: 10px;">
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="neuro-loc-alert"
+                                                        style="width:16px; height:16px;"> Alert</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="neuro-loc-drowsy"
+                                                        style="width:16px; height:16px;"> Drowsy</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="neuro-loc-leth"
+                                                        style="width:16px; height:16px;"> Lethargy</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="neuro-loc-stup"
+                                                        style="width:16px; height:16px;"> Stuporous</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="neuro-loc-coma"
+                                                        style="width:16px; height:16px;"> Comatose</label>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Glasgow
+                                                Coma Scale (GCS)</label>
+                                            <div style="display:flex; gap:10px;">
+                                                <div style="flex:1;">
+                                                    <label style="font-size:0.85rem; font-weight:600;">Eye</label>
+                                                    <div
+                                                        style="display:flex; flex-direction:column; gap:4px; font-size:0.85rem;">
+                                                        <label><input type="checkbox" id="neuro-gcs-e4"> 4 -
+                                                            Spont</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-e3"> 3 -
+                                                            Speech</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-e2"> 2 -
+                                                            Pain</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-e1"> 1 -
+                                                            None</label>
+                                                    </div>
+                                                </div>
+                                                <div style="flex:1.2;">
+                                                    <label style="font-size:0.85rem; font-weight:600;">Verbal</label>
+                                                    <div
+                                                        style="display:flex; flex-direction:column; gap:4px; font-size:0.85rem;">
+                                                        <label><input type="checkbox" id="neuro-gcs-v5"> 5 -
+                                                            Orient</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-v4"> 4 -
+                                                            Confused</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-v3"> 3 -
+                                                            Inapp</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-v2"> 2 -
+                                                            Incomp</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-v1"> 1 -
+                                                            None</label>
+                                                    </div>
+                                                </div>
+                                                <div style="flex:1.5;">
+                                                    <label style="font-size:0.85rem; font-weight:600;">Motor</label>
+                                                    <div
+                                                        style="display:flex; flex-direction:column; gap:4px; font-size:0.85rem;">
+                                                        <label><input type="checkbox" id="neuro-gcs-m6"> 6 -
+                                                            Obeys</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-m5"> 5 -
+                                                            Localizes</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-m4"> 4 -
+                                                            Withdraws</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-m3"> 3 -
+                                                            Flexion</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-m2"> 2 -
+                                                            Extens</label>
+                                                        <label><input type="checkbox" id="neuro-gcs-m1"> 1 -
+                                                            None</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Pupils & Sensory</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Pupillary
+                                                Assessment</label>
+                                            <div style="display:flex; flex-direction:column; gap:8px;">
+                                                <div
+                                                    style="display:flex; align-items:center; gap:8px; font-size:0.85rem;">
+                                                    <strong>Right:</strong> <input type="text" id="neuro-pa-rsz"
+                                                        style="width:30px; padding:2px;" placeholder="mm">
+                                                    <label><input type="checkbox" id="neuro-pa-rbr"> Brisk</label>
+                                                    <label><input type="checkbox" id="neuro-pa-rsl"> Slug</label>
+                                                    <label><input type="checkbox" id="neuro-pa-rnr"> Non-r</label>
+                                                </div>
+                                                <div
+                                                    style="display:flex; align-items:center; gap:8px; font-size:0.85rem;">
+                                                    <strong>Left:</strong> <input type="text" id="neuro-pa-lsz"
+                                                        style="width:30px; padding:2px;" placeholder="mm">
+                                                    <label><input type="checkbox" id="neuro-pa-lbr"> Brisk</label>
+                                                    <label><input type="checkbox" id="neuro-pa-lsl"> Slug</label>
+                                                    <label><input type="checkbox" id="neuro-pa-lnr"> Non-r</label>
+                                                </div>
+                                                <div
+                                                    style="display:flex; align-items:center; gap:8px; font-size:0.85rem;">
+                                                    <strong>Equality:</strong>
+                                                    <label><input type="checkbox" id="neuro-pa-eq"> Equal</label>
+                                                    <label><input type="checkbox" id="neuro-pa-uneq"> Unequal</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; gap:15px;">
+                                            <div style="flex:1;">
+                                                <label
+                                                    style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Sensory</label>
+                                                <div
+                                                    style="display: flex; flex-direction: column; gap: 4px; font-size:0.85rem;">
+                                                    <label><input type="checkbox" id="neuro-sen-intact"> Intact</label>
+                                                    <label><input type="checkbox" id="neuro-sen-dec"> Decreased</label>
+                                                    <label><input type="checkbox" id="neuro-sen-abs"> Absent</label>
+                                                </div>
+                                            </div>
+                                            <div style="flex:1;">
+                                                <label
+                                                    style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Orientation</label>
+                                                <div
+                                                    style="display: flex; flex-direction: column; gap: 4px; font-size:0.85rem;">
+                                                    <label><input type="checkbox" id="neuro-or-per"> Person</label>
+                                                    <label><input type="checkbox" id="neuro-or-time"> Time</label>
+                                                    <label><input type="checkbox" id="neuro-or-sit"> Situation</label>
+                                                    <label><input type="checkbox" id="neuro-or-place"> Place</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Motor & Observation</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Motor
+                                                Function</label>
+                                            <div
+                                                style="display:flex; flex-direction:column; gap:8px; font-size:0.85rem;">
+                                                <div style="display:flex; gap:8px;">
+                                                    <strong>Upper:</strong>
+                                                    <label><input type="checkbox" id="neuro-mf-us"> Strong</label>
+                                                    <label><input type="checkbox" id="neuro-mf-uw"> Weak</label>
+                                                    <label><input type="checkbox" id="neuro-mf-up"> Paralysis</label>
+                                                </div>
+                                                <div style="display:flex; gap:8px;">
+                                                    <strong>Lower:</strong>
+                                                    <label><input type="checkbox" id="neuro-mf-ls"> Strong</label>
+                                                    <label><input type="checkbox" id="neuro-mf-lw"> Weak</label>
+                                                    <label><input type="checkbox" id="neuro-mf-lp"> Paralysis</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Grip
+                                                Strength</label>
+                                            <div
+                                                style="display:flex; flex-direction:column; gap:8px; font-size:0.85rem;">
+                                                <div style="display:flex; gap:8px;">
+                                                    <strong>Right:</strong> <label><input type="checkbox"
+                                                            id="neuro-gs-rs"> Strong</label> <label><input
+                                                            type="checkbox" id="neuro-gs-rw"> Weak</label>
+                                                </div>
+                                                <div style="display:flex; gap:8px;">
+                                                    <strong>Left:</strong> <label><input type="checkbox"
+                                                            id="neuro-gs-ls"> Strong</label> <label><input
+                                                            type="checkbox" id="neuro-gs-lw"> Weak</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Additional
+                                                Observations</label>
+                                            <div style="display: flex; flex-wrap:wrap; gap: 8px; font-size:0.85rem;">
+                                                <label><input type="checkbox" id="neuro-ao-seiz"> Seizure
+                                                    Activity</label>
+                                                <label><input type="checkbox" id="neuro-ao-head"> Headache</label>
+                                                <label><input type="checkbox" id="neuro-ao-diz"> Dizziness</label>
+                                                <label><input type="checkbox" id="neuro-ao-nv"> Nausea/Vom</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                                    <div><label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Assessment
+                                            Findings:</label><textarea id="neuro-findings" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                    <div><label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Intervention
+                                            / Action Taken:</label><textarea id="neuro-intervention" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;"><label
+                                        style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Doctor
+                                        Notes:</label><textarea id="neuro-docnotes" rows="2"
+                                        style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- PSYCHOLOGICAL -->
+                            <div class="demo-panel">
+                                <div class="demo-panel-header"
+                                    style="display:flex; justify-content:space-between; align-items:center;">
+                                    <h3 style="font-size: 1.1rem; margin: 0; border: none; padding-bottom: 0;">
+                                        Psychological Assessment</h3>
+                                    <div style="display:flex; align-items:center; gap:15px;">
+                                        <div style="display:flex; align-items:center; gap:5px;">
+                                            <div style="display:flex; gap:2px;">
+                                                <input type="text" id="psy-metric1"
+                                                    style="width: 60px; height: 24px; background: #001f3f; border: none; color: white; padding: 2px 5px; font-size: 0.75rem; border-radius: 4px;">
+                                                <input type="text" id="psy-metric2"
+                                                    style="width: 60px; height: 24px; background: #001f3f; border: none; color: white; padding: 2px 5px; font-size: 0.75rem; border-radius: 4px;">
+                                                <input type="text" id="psy-metric3"
+                                                    style="width: 60px; height: 24px; background: #001f3f; border: none; color: white; padding: 2px 5px; font-size: 0.75rem; border-radius: 4px;">
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; align-items:center; gap:8px;">
+                                            <label
+                                                style="font-size:0.9rem; font-weight:600; color:var(--navy-blue);">Date
+                                                & Time:</label>
+                                            <input type="datetime-local" id="psy-datetime"
+                                                style="border: 1px solid var(--navy-blue); border-radius: 4px; padding: 4px; outline:none; font-family:inherit;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin-top: 15px;">
+
+                                    <!-- Column 1: Appearance & Behavior -->
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 12px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Appearance & Behavior</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Appearance</label>
+                                            <div
+                                                style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size:0.85rem;">
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-app-well"> Well-groomed</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-app-dish"> Disheveled</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-app-poor"> Poor hygiene</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-app-appr"> Appropriate</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-app-inapp"> Inappropriate</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Behavior</label>
+                                            <div
+                                                style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size:0.85rem;">
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-beh-calm"> Calm</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-beh-coop"> Cooperative</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-beh-rest"> Restless</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-beh-agit"> Agitated</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-beh-with"> Withdrawn</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-beh-aggr"> Aggressive</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 2: Mood, Affect & Speech -->
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 12px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Mood, Affect & Speech</h4>
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display:flex; gap:10px;">
+                                                <div style="flex:1;">
+                                                    <label
+                                                        style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Mood</label>
+                                                    <div
+                                                        style="display: flex; flex-direction: column; gap: 4px; font-size:0.82rem;">
+                                                        <label style="display:flex; align-items:center; gap:4px;"><input
+                                                                type="checkbox" id="psy-mood-happ"> Happy</label>
+                                                        <label style="display:flex; align-items:center; gap:4px;"><input
+                                                                type="checkbox" id="psy-mood-sad"> Sad</label>
+                                                        <label style="display:flex; align-items:center; gap:4px;"><input
+                                                                type="checkbox" id="psy-mood-anx"> Anxious</label>
+                                                        <label style="display:flex; align-items:center; gap:4px;"><input
+                                                                type="checkbox" id="psy-mood-depr"> Depressed</label>
+                                                    </div>
+                                                </div>
+                                                <div style="flex:1;">
+                                                    <label
+                                                        style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Affect</label>
+                                                    <div
+                                                        style="display: flex; flex-direction: column; gap: 4px; font-size:0.82rem;">
+                                                        <label style="display:flex; align-items:center; gap:4px;"><input
+                                                                type="checkbox" id="psy-aff-appr"> Appropriate</label>
+                                                        <label style="display:flex; align-items:center; gap:4px;"><input
+                                                                type="checkbox" id="psy-aff-flat"> Flat</label>
+                                                        <label style="display:flex; align-items:center; gap:4px;"><input
+                                                                type="checkbox" id="psy-aff-blun"> Blunted</label>
+                                                        <label style="display:flex; align-items:center; gap:4px;"><input
+                                                                type="checkbox" id="psy-aff-labi"> Labile</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; gap:10px;">
+                                            <div style="flex:1;">
+                                                <label
+                                                    style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Speech</label>
+                                                <div
+                                                    style="display: flex; flex-direction: column; gap: 4px; font-size:0.82rem;">
+                                                    <label style="display:flex; align-items:center; gap:4px;"><input
+                                                            type="checkbox" id="psy-spe-clear"> Clear</label>
+                                                    <label style="display:flex; align-items:center; gap:4px;"><input
+                                                            type="checkbox" id="psy-spe-slur"> Slurred</label>
+                                                    <label style="display:flex; align-items:center; gap:4px;"><input
+                                                            type="checkbox" id="psy-spe-rapid"> Rapid</label>
+                                                </div>
+                                            </div>
+                                            <div style="flex:1;">
+                                                <label
+                                                    style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Orientation</label>
+                                                <div
+                                                    style="display: flex; flex-direction: column; gap: 4px; font-size:0.82rem;">
+                                                    <label style="display:flex; align-items:center; gap:4px;"><input
+                                                            type="checkbox" id="psy-ori-pers"> Person</label>
+                                                    <label style="display:flex; align-items:center; gap:4px;"><input
+                                                            type="checkbox" id="psy-ori-time"> Time</label>
+                                                    <label style="display:flex; align-items:center; gap:4px;"><input
+                                                            type="checkbox" id="psy-ori-plac"> Place</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 3: Thought & Cognition -->
+                                    <div
+                                        style="background: #f4f8fb; padding: 15px; border-radius: 8px; border: 1px solid #d0e1ed;">
+                                        <h4
+                                            style="color: var(--navy-blue); margin-bottom: 12px; font-size: 1rem; border-bottom: 1px solid #d0e1ed; padding-bottom: 5px;">
+                                            Thought & Cognition</h4>
+                                        <div style="margin-bottom: 12px;">
+                                            <label
+                                                style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Thought
+                                                Content & Process</label>
+                                            <div
+                                                style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size:0.82rem;">
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-tp-logi"> Logical</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-tc-norm"> T-Normal</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-tp-diso"> Disorganized</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-tc-para"> Paranoid</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-per-none"> No Halluc.</label>
+                                                <label style="display:flex; align-items:center; gap:4px;"><input
+                                                        type="checkbox" id="psy-tc-suic"> Suicidal Id.</label>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; gap:10px;">
+                                            <div style="flex:1;">
+                                                <label
+                                                    style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Memory</label>
+                                                <div
+                                                    style="display: flex; flex-direction: column; gap: 4px; font-size:0.82rem;">
+                                                    <label style="display:flex; align-items:center; gap:4px;"><input
+                                                            type="checkbox" id="psy-mem-inta"> Intact</label>
+                                                    <label style="display:flex; align-items:center; gap:4px;"><input
+                                                            type="checkbox" id="psy-mem-mild"> Mild Imp.</label>
+                                                </div>
+                                            </div>
+                                            <div style="flex:1;">
+                                                <label
+                                                    style="font-weight: 600; margin-bottom: 8px; display:block; color: var(--navy-blue);">Insight/Judg.</label>
+                                                <div
+                                                    style="display: flex; flex-direction: column; gap: 4px; font-size:0.82rem;">
+                                                    <label style="display:flex; align-items:center; gap:4px;"><input
+                                                            type="checkbox" id="psy-ins-good"> Good Insight</label>
+                                                    <label style="display:flex; align-items:center; gap:4px;"><input
+                                                            type="checkbox" id="psy-jud-good"> Good Judg.</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                                    <div>
+                                        <label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Assessment
+                                            Findings:</label>
+                                        <textarea id="psy-findings" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                    <div>
+                                        <label
+                                            style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Intervention
+                                            / Action Taken:</label>
+                                        <textarea id="psy-intervention" rows="3"
+                                            style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 15px;">
+                                    <label
+                                        style="font-weight: 600; margin-bottom: 5px; color: var(--navy-blue); display:block;">Doctor
+                                        Notes:</label>
+                                    <textarea id="psy-docnotes" rows="2"
+                                        style="width: 100%; border: 1px solid var(--navy-blue); border-radius: 4px; padding: 8px; font-family: inherit; resize: vertical;"></textarea>
+                                </div>
+                            </div>
+
+                            <div style="text-align: right; margin-top: 20px;">
+                                <button type="button" id="edit-systems" class="btn-add-client"
+                                    style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
+                                <button type="button" id="cancel-systems" class="btn-add-client"
+                                    style="background-color: #95a5a6; margin-right: 10px; display: none;">❌
+                                    Cancel</button>
+                                <button type="button" class="btn-add-client" id="save-systems"
+                                    style="background-color: var(--navy-blue); display: none;">💾 Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Global Footer -->
+        <footer class="global-footer">
+            <div class="footer-left">
+                <img src="icon/logo.png" class="footer-avatar-small"></img>
+                <div class="footer-brand">
+                    <h4>Lifeline</h4>
+                    <span>&copy; 2026 Lifeline Medical Center.</span>
+                    <span>All rights reserved.</span>
+                </div>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="helpCenter.html">Help Center</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contactSupport.html">Contact Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="aboutUs.html">About Us</a></li>
+                        <li><a href="companyProfile.html">Company Profile</a></li>
+                        <li><a href="terms.html">Terms &amp; Condition</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="patient.js"></script>
+    <script src="profile-dropdown.js"></script>
+    <script src="flowsheet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const pageName = window.location.pathname.split('/').pop() || 'default';
+
+            const savedTab = localStorage.getItem(`activeTab_${pageName}`);
+            if (savedTab) {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                const targetBtn = Array.from(tabBtns).find(b => b.getAttribute('data-tab') === savedTab);
+                const targetContent = document.getElementById(savedTab);
+                if (targetBtn && targetContent) {
+                    targetBtn.classList.add('active');
+                    targetContent.classList.add('active');
+                } else if (tabBtns[0] && tabContents[0]) {
+                    tabBtns[0].classList.add('active');
+                    tabContents[0].classList.add('active');
+                }
+            }
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+
+                    // Show corresponding content
+                    const targetId = btn.getAttribute('data-tab');
+                    localStorage.setItem(`activeTab_${pageName}`, targetId);
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

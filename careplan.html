@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - Lifeline Medical Center</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .careplan-panel {
+            margin-bottom: 20px; 
+            padding: 15px; 
+            border: 2px solid var(--navy-blue); 
+            border-radius: 8px; 
+            background-color: #fcfcfc;
+            position: relative;
+        }
+        .header-section {
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .header-section h4 {
+            margin: 0;
+            color: var(--navy-blue);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-layout">
+    <header class="app-header">
+        <div class="header-left">
+            <img src="icon/logo.png" class="header-avatar-small"></img>
+            <h1>Lifeline Medical Center</h1>
+        </div>
+        <div class="header-right dropdown-container">
+            <div class="profile-icon" id="profile-btn">👤</div>
+            <div class="dropdown-menu" id="profile-dropdown">
+                <div class="dropdown-header">
+                    <strong id="dropdown-username">User</strong>
+                    <div id="dropdown-email" class="dropdown-email-text">user@example.com</div>
+                </div>
+                <hr>
+                <a href="profile.html" class="dropdown-item">👤 Profile</a>
+                <a href="#" id="logout-btn" class="dropdown-item text-danger">🚪 Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <div class="dash-title-wrapper">
+            <div>
+                 <h1 class="page-title">Clinical Documentation System</h1>
+                 <p class="page-subtitle" id="dash-patient-subtitle" style="margin-bottom: 0;">Patient: Loading...</p>
+            </div>
+            <a href="patientList.html" class="btn-add-client" style="padding: 8px 25px;">Change Patient</a>
+        </div>
+
+        <div class="dashboard-layout" style="display: flex;">
+            <div class="sidebar">
+                <a href="patientDashboard.html">Demographics</a>
+                <a href="medicalHistory.html">Medical History</a>
+                <a href="flowsheet.html">Flowsheet</a>
+                <a href="results.html">Results</a>
+                <a href="mar.html">MAR</a>
+                <a href="careplan.html" class="active">Care Plan</a>
+                <a href="navigator.html">Navigator</a>
+            </div>
+                        <div style="padding-left: 40px; color: var(--text-primary); flex: 1;">
+                 <div class="demo-main-container" id="careplan-module">
+                     <div style="display: flex; justify-content: space-between; align-items:center; margin-bottom: 20px;">
+                         <div>
+                             <h2 style="font-size: 1.35rem; color: var(--navy-blue); margin-bottom: 0;">
+                                <span style="font-size: 1.5rem; margin-right: 10px; vertical-align: middle;">🤍</span>Care Plan
+                             </h2>
+                             <span style="color:#555;">Nursing care plans and clinical goals</span>
+                         </div>
+                     </div>
+                     
+                     <div class="tabs-header">
+                         <button class="tab-btn active" data-tab="progress-notes">Progress Notes Form</button>
+                         <button class="tab-btn" data-tab="nursing-care-plan">Nursing Care Plan</button>
+                     </div>
+
+                     <div class="tab-content active" id="progress-notes">
+                         <div style="display: flex; gap: 20px;">
+                             <!-- Left Side Table -->
+                             <div style="flex: 2; overflow-y: auto; max-height: 500px;">
+                                 <table class="demo-table" style="border: 1px solid var(--navy-blue);">
+                                     <thead>
+                                         <tr>
+                                             <th>DATE</th>
+                                             <th>TIME</th>
+                                             <th>AUTHOR</th>
+                                             <th>NOTE TYPE</th>
+                                             <th>SUMMARY</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody id="progress-notes-list">
+                                         <!-- Dynamic Rows -->
+                                     </tbody>
+                                 </table>
+                                 <button type="button" class="btn-add-client" id="add-progress-note-btn" style="background-color: var(--navy-blue); margin-top: 15px; display: none;">+ Add Note</button>
+                             </div>
+                             
+                             <!-- Right Side Form -->
+                             <div style="flex: 1; background-color: var(--white); border-radius: 12px; padding: 20px; border: 2px solid var(--navy-blue); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                                 <h3 style="text-align: center; margin-bottom: 15px; font-size: 1.2rem; color: var(--text-primary);">Progress Note Entry Form</h3>
+                                 <div id="pn-form-view" style="font-size: 0.95rem;">
+                                     <div style="margin-bottom: 5px;"><strong>Date:</strong> <span id="pn-view-date">-</span></div>
+                                     <div style="margin-bottom: 5px;"><strong>Time:</strong> <span id="pn-view-time">-</span></div>
+                                     <div style="margin-bottom: 15px;"><strong>Author:</strong> <span id="pn-view-author">-</span></div>
+                                     
+                                     <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Subjective (S):</div>
+                                     <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-s">-</div>
+                                     
+                                     <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Objective (O):</div>
+                                     <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-o">-</div>
+                                     
+                                     <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Assessment (A):</div>
+                                     <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-a">-</div>
+                                     
+                                     <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Plan (P):</div>
+                                     <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-p">-</div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div style="text-align: right; margin-top: 20px;">
+                             <button type="button" id="edit-progress-notes" class="btn-add-client" style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
+                             <button type="button" id="cancel-progress-notes" class="btn-add-client" style="background-color: #95a5a6; margin-right: 10px; display: none;">❌ Cancel</button>
+                             <button type="button" class="btn-add-client" id="save-progress-notes" style="background-color: var(--navy-blue); display: none;">💾 Save</button>
+                         </div>
+                     </div>
+
+                     <div class="tab-content" id="nursing-care-plan">
+                         <div style="text-align: right; margin-bottom: 15px;">
+                             <button type="button" class="btn-small-add" id="add-nursing-care-btn" style="display: none;">+ Add Row</button>
+                         </div>
+                         <div style="overflow-x: auto;">
+                             <table class="demo-table" style="border: 1px solid var(--navy-blue); min-width: 800px;">
+                                 <thead>
+                                     <tr>
+                                         <th style="width: 100px;">DATE</th>
+                                         <th style="width: 100px;">TIME</th>
+                                         <th>ASSESSMENT</th>
+                                         <th>DIAGNOSIS</th>
+                                         <th>PLANNING</th>
+                                         <th>INTERVENTION</th>
+                                         <th>EVALUATION</th>
+                                         <th class="ncp-action-col" style="width: 50px; display: none;"></th>
+                                     </tr>
+                                 </thead>
+                                 <tbody id="nursing-care-list">
+                                     <!-- Dynamic Rows -->
+                                 </tbody>
+                             </table>
+                         </div>
+                         <div style="text-align: right; margin-top: 20px;">
+                             <button type="button" id="edit-nursing-care" class="btn-add-client" style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
+                             <button type="button" id="cancel-nursing-care" class="btn-add-client" style="background-color: #95a5a6; margin-right: 10px; display: none;">❌ Cancel</button>
+                             <button type="button" class="btn-add-client" id="save-nursing-care" style="background-color: var(--navy-blue); display: none;">💾 Save</button>
+                         </div>
+                     </div>
+
+                 </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="global-footer">
+        <div class="footer-left">
+            <img src="icon/logo.png" class="footer-avatar-small"></img>
+            <div class="footer-brand">
+                <h4>Lifeline</h4>
+                <span>&copy; 2026 Lifeline Medical Center.</span>
+            </div>
+        </div>
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul><li><a href="#">Help Center</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul><li><a href="#">Privacy Policy</a></li></ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="patient.js"></script>
+<script src="profile-dropdown.js"></script>
+<script src="careplan.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const pageName = window.location.pathname.split('/').pop() || 'default';
+
+        const savedTab = localStorage.getItem(`activeTab_${pageName}`);
+        if (savedTab) {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            const targetBtn = Array.from(tabBtns).find(b => b.getAttribute('data-tab') === savedTab);
+            const targetContent = document.getElementById(savedTab);
+            if (targetBtn && targetContent) {
+                targetBtn.classList.add('active');
+                targetContent.classList.add('active');
+            } else if (tabBtns[0] && tabContents[0]) {
+                tabBtns[0].classList.add('active');
+                tabContents[0].classList.add('active');
+            }
+        }
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                const targetId = btn.getAttribute('data-tab');
+                localStorage.setItem(`activeTab_${pageName}`, targetId);
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

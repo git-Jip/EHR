@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - Lifeline</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+<div class="app-layout">
+    <header class="app-header">
+        <div class="header-left">
+            <div class="header-avatar-small"></div>
+            <h1>Lifeline Medical Center</h1>
+        </div>
+        <div class="header-right dropdown-container">
+            <div class="profile-icon" id="profile-btn">👤</div>
+            <div class="dropdown-menu" id="profile-dropdown">
+                <div class="dropdown-header">
+                    <strong id="dropdown-username">User</strong>
+                    <div id="dropdown-email" class="dropdown-email-text">user@example.com</div>
+                </div>
+                <hr>
+                <a href="profile.html" class="dropdown-item">👤 Profile</a>
+                <a href="#" id="logout-btn" class="dropdown-item text-danger">🚪 Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content-wrapper info-page-layout">
+        <button onclick="history.back()" class="btn-return">&#x21B6;</button>
+
+        <h1 class="info-title">Terms & Conditions</h1>
+        
+        <div class="info-container" style="text-align: center;">
+            <p>By accessing and using this site, patients agree to provide accurate and truthful information to ensure the quality of healthcare services. The system may occasionally experience downtime or technical errors, and the institution shall not be held liable for any inconvenience caused. This site operates under the Philippine Data Privacy Act of 2012 and other applicable laws, and all users are expected to comply with these regulations. The institution reserves the right to update or modify these Terms and Conditions at any time, and patients will be notified of significant changes.</p>
+            <br>
+            <p>Continued use of the system after updates constitutes acceptance of the revised terms.</p>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+        <div class="footer-left">
+            <div class="footer-avatar-small"></div>
+            <div class="footer-brand">
+                <h4>Lifeline Medical Center</h4>
+                <span>&copy; 2026 Lifeline Medical Center.</span>
+                <span>All rights reserved.</span>
+            </div>
+        </div>
+
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="helpCenter.html">Help Center</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contactSupport.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="aboutUs.html">About Us</a></li>
+                    <li><a href="companyProfile.html">Company Profile</a></li>
+                    <li><a href="terms.html">Terms &amp; Condition</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="profile-dropdown.js"></script>
+</body>
+</html>

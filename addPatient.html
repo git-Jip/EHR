@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Patient - NurseInfo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-layout">
+    <header class="app-header">
+        <div class="header-left">
+            <div class="header-avatar-small"></div>
+            <h1>NurseInfo</h1>
+        </div>
+        <div class="header-right dropdown-container">
+            <div class="profile-icon" id="profile-btn">👤</div>
+            <div class="dropdown-menu" id="profile-dropdown">
+                <div class="dropdown-header">
+                    <strong id="dropdown-username">User</strong>
+                    <div id="dropdown-email" class="dropdown-email-text">user@example.com</div>
+                </div>
+                <hr>
+                <a href="profile.html" class="dropdown-item">👤 Profile</a>
+                <a href="#" id="logout-btn" class="dropdown-item text-danger">🚪 Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <form id="add-patient-form" class="add-client-container">
+            <div class="form-header-row">
+                <h2>Add New Client:</h2>
+                <div class="client-id">CLIENT ID: AUTO GENERATED</div>
+            </div>
+
+            <div class="form-sections-grid">
+                <!-- Top Row -->
+                <div class="form-row-group">
+                    <!-- Patient Information -->
+                    <div class="form-section patient-info-sec">
+                        <h3>Patient Information</h3>
+                        
+                        <div class="input-grid-4">
+                            <div class="form-field">
+                                <label>First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Middle Name</label>
+                                <input type="text" id="middleName" name="middleName">
+                            </div>
+                            <div class="form-field">
+                                <label>Date of Birth</label>
+                                <input type="date" id="dateOfBirth" name="dateOfBirth">
+                            </div>
+                        </div>
+
+                        <div class="input-grid-4">
+                            <div class="form-field">
+                                <label>Sex</label>
+                                <select id="sex" name="sex">
+                                    <option value="" disabled selected></option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Civil Status</label>
+                                <select id="civilStatus" name="civilStatus">
+                                    <option value="" disabled selected></option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Divorced">Divorced</option>
+                                    <option value="Widowed">Widowed</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Nationality</label>
+                                <input type="text" id="nationality" name="nationality">
+                            </div>
+                            <div class="form-field">
+                                <label>Religion</label>
+                                <input type="text" id="religion" name="religion">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="form-section contact-info-sec">
+                        <h3>Contact Information</h3>
+                        
+                        <div class="input-grid-2">
+                            <div class="form-field">
+                                <label>Address</label>
+                                <input type="text" id="address" name="address">
+                            </div>
+                            <div class="form-field">
+                                <label>Phone</label>
+                                <input type="text" id="phone" name="phone">
+                            </div>
+                        </div>
+
+                        <div class="input-grid-2">
+                            <div class="form-field">
+                                <label>Emergency Contact</label>
+                                <input type="text" id="emergencyContact" name="emergencyContact">
+                            </div>
+                            <div class="form-field">
+                                <label>Emergency Phone</label>
+                                <input type="text" id="emergencyPhone" name="emergencyPhone">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Bottom Row -->
+                <div class="form-row-group">
+                    <!-- Clinical Information -->
+                    <div class="form-section patient-info-sec" style="padding-right: 250px;"> <!-- Space for absolute buttons -->
+                        <h3>Clinical Information</h3>
+                        
+                        <div class="input-grid-4">
+                            <div class="form-field">
+                                <label>Blood Type</label>
+                                <select id="bloodType" name="bloodType">
+                                    <option value="" disabled selected></option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Height (cm)</label>
+                                <input type="number" id="height" name="height">
+                            </div>
+                            <div class="form-field">
+                                <label>Weight (kg)</label>
+                                <input type="number" id="weight" name="weight">
+                            </div>
+                            <div class="form-field">
+                                <label>BMI</label>
+                                <input type="number" step="0.1" id="bmi" name="bmi">
+                            </div>
+                        </div>
+
+                        <div class="input-grid-4">
+                            <div class="form-field">
+                                <label>Admission Date</label>
+                                <input type="date" id="admissionDate" name="admissionDate">
+                            </div>
+                            <div class="form-field">
+                                <label>Ward</label>
+                                <select id="ward" name="ward">
+                                    <option value="" disabled selected></option>
+                                    <option value="General">General</option>
+                                    <option value="ICU">ICU</option>
+                                    <option value="Maternity">Maternity</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Attending Physician</label>
+                                <input type="text" id="attendingPhysician" name="attendingPhysician">
+                            </div>
+                            <div class="form-field">
+                                <label>Insurance Provider</label>
+                                <input type="text" id="insuranceProvider" name="insuranceProvider">
+                            </div>
+                        </div>
+
+                        <div class="input-grid-4">
+                            <div class="form-field">
+                                <label>Insurance ID</label>
+                                <input type="text" id="insuranceId" name="insuranceId">
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Absolute positioned buttons -->
+            <div class="form-actions">
+                <button type="submit" class="btn-form-action btn-change-patient">Add Patient</button>
+                <a href="patientList.html" class="btn-form-action btn-cancel" style="display: block; box-sizing: border-box;">Cancel</a>
+            </div>
+
+        </form>
+        
+        <div id="patient-message" style="margin-top: 15px; font-weight: bold; font-size: 1.1rem; color: #fff; text-align: center;"></div>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+        <div class="footer-left">
+            <div class="footer-avatar-small"></div>
+            <div class="footer-brand">
+                <h4>NurseInfo</h4>
+                <span>&copy; 2026 Nursing Informatics System.</span>
+                <span>All rights reserved.</span>
+            </div>
+        </div>
+
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="helpCenter.html">Help Center</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contactSupport.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="aboutUs.html">About Us</a></li>
+                    <li><a href="companyProfile.html">Company Profile</a></li>
+                    <li><a href="terms.html">Terms &amp; Condition</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="patient.js"></script>
+<script src="profile-dropdown.js"></script>
+</body>
+</html>

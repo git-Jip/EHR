@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Lifeline</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .faq-scrollable {
+            max-height: 50vh;
+            overflow-y: auto;
+            padding-right: 15px; /* for scrollbar */
+        }
+        .faq-scrollable::-webkit-scrollbar {
+            width: 8px;
+        }
+        .faq-scrollable::-webkit-scrollbar-thumb {
+            background-color: var(--navy-blue);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="login-page">
+<div class="app-layout">
+    <header class="app-header">
+        <div class="header-left">
+            <div class="header-avatar-small"></div>
+            <h1>Lifeline Medical Center</h1>
+        </div>
+        <div class="header-right dropdown-container">
+            <div class="profile-icon" id="profile-btn">👤</div>
+            <div class="dropdown-menu" id="profile-dropdown">
+                <div class="dropdown-header">
+                    <strong id="dropdown-username">User</strong>
+                    <div id="dropdown-email" class="dropdown-email-text">user@example.com</div>
+                </div>
+                <hr>
+                <a href="profile.html" class="dropdown-item">👤 Profile</a>
+                <a href="#" id="logout-btn" class="dropdown-item text-danger">🚪 Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content-wrapper info-page-layout">
+        <button onclick="history.back()" class="btn-return">&#x21B6;</button>
+
+        <h1 class="info-title">FAQ</h1>
+        <p class="info-subtitle">Frequently Asked Questions</p>
+        
+        <div class="info-container faq-scrollable">
+            <p>1. What is the purpose of the EHR system?</p>
+            <p>The Electronic Health Record (EHR) system is designed to store and manage patient medical records in a digital format. It allows healthcare providers to easily access accurate patient information such as medical history, diagnoses, treatments, prescriptions, and laboratory results. This helps improve the efficiency of healthcare services and ensures better coordination between medical professionals.</p>
+            <br>
+            
+            <p>2. Who can access the system?</p>
+            <p>Only authorized healthcare professionals and staff members are allowed to access the EHR system. This includes doctors, nurses, medical staff, and administrative personnel who have been provided with secure login credentials. Access is limited to ensure that sensitive patient information remains protected.</p>
+            <br>
+            
+            <p>3. Is patient information secure?</p>
+            <p>Yes. The system follows strict security protocols to protect patient data. Access to medical records is restricted to authorized users, and all patient information is stored securely to maintain privacy and confidentiality.</p>
+            <br>
+
+            <p>4. Can patients access their medical records?</p>
+            <p>Patients may request access to their medical records through the hospital or through the patient portal if it is available. This allows patients to review their medical history, prescriptions, and treatment details when needed.</p>
+            <br>
+
+            <p>5. What should I do if I forget my password?</p>
+            <p>If you forget your password, you can use the password recovery option available on the login page. Follow the instructions provided to reset your password and regain access to your account. If you still experience difficulties, you may contact the system administrator or support team for assistance.</p>
+            <br>
+            
+            <p>6. Can patient records be updated?</p>
+            <p>Yes. Authorized healthcare professionals can update patient records whenever new medical information becomes available. This includes diagnoses, treatments, prescriptions, laboratory results, and consultation notes to ensure that patient records remain accurate and up to date.</p>
+            <br>
+
+            <p>7. What are the benefits of using the EHR system?</p>
+            <p>The EHR system helps healthcare providers manage patient information more efficiently. It improves the accuracy of medical records, reduces paperwork, allows faster access to patient history, and supports better decision-making during consultations. This ultimately improves the overall quality of healthcare services.</p>
+            <br>
+
+            <p>8. What should I do if the system is not working properly?</p>
+            <p>If the system is not functioning properly or you encounter technical issues, you should immediately contact the system administrator or the technical support team. They will assist in troubleshooting the problem to ensure that the system continues to operate smoothly.</p>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+        <div class="footer-left">
+            <div class="footer-avatar-small"></div>
+            <div class="footer-brand">
+                <h4>Lifeline Medical Center</h4>
+                <span>&copy; 2026 Lifeline Medical Center.</span>
+                <span>All rights reserved.</span>
+            </div>
+        </div>
+
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="helpCenter.html">Help Center</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contactSupport.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="aboutUs.html">About Us</a></li>
+                    <li><a href="companyProfile.html">Company Profile</a></li>
+                    <li><a href="terms.html">Terms &amp; Condition</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="profile-dropdown.js"></script>
+</body>
+</html>

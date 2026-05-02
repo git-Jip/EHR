@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Lifeline</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-layout">
+    <header class="app-header">
+        <div class="header-left">
+            <div class="header-avatar-small"></div>
+            <h1>Lifeline Medical Center</h1>
+        </div>
+        <div class="header-right dropdown-container">
+            <div class="profile-icon" id="profile-btn">👤</div>
+            <div class="dropdown-menu" id="profile-dropdown">
+                <div class="dropdown-header">
+                    <strong id="dropdown-username">User</strong>
+                    <div id="dropdown-email" class="dropdown-email-text">user@example.com</div>
+                </div>
+                <hr>
+                <a href="profile.html" class="dropdown-item">👤 Profile</a>
+                <a href="#" id="logout-btn" class="dropdown-item text-danger">🚪 Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content-wrapper" style="display: flex; flex-direction: column; align-items: flex-start; padding: 60px 80px;">
+        <h1 class="page-title" style="color: var(--navy-blue); margin-bottom: 30px; font-size: 2.5rem;">My Profile</h1>
+        
+        <div class="profile-card-container">
+            <div class="profile-card-top">
+                <div class="profile-card-avatar">👤</div>
+                <div>
+                    <div class="profile-card-name" id="profile-page-username">Loading...</div>
+                    <div class="profile-card-email" id="profile-page-email">loading@example.com</div>
+                </div>
+            </div>
+
+            <hr class="profile-card-divider">
+
+            <div class="profile-info-row">
+                <div class="profile-info-icon">✉️</div>
+                <div class="profile-info-content">
+                    <label>Email</label>
+                    <span id="profile-info-email">loading@example.com</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-icon">🛡️</div>
+                <div class="profile-info-content">
+                    <label>Role</label>
+                    <span>Nurse</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+        <div class="footer-left">
+        
+            <div class="footer-brand">
+                <h4>Lifeline Medical Center</h4>
+                <span>&copy; 2026Lifeline Medical Center.</span>
+                <span>All rights reserved.</span>
+            </div>
+        </div>
+
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="helpCenter.html">Help Center</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contactSupport.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="aboutUs.html">About Us</a></li>
+                    <li><a href="companyProfile.html">Company Profile</a></li>
+                    <li><a href="terms.html">Terms &amp; Condition</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="profile-dropdown.js"></script>
+</body>
+</html>

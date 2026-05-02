@@ -1,0 +1,26 @@
+{
+  "PID-1003": {
+    "plans": [
+      {
+        "diag": "New Nursing Diagnosis",
+        "pri": "High Priority",
+        "stat": "Active",
+        "eval": "",
+        "goals": [
+          ""
+        ],
+        "ints": [
+          {
+            "checked": false,
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  "PID-1001": {
+    "plans": [],
+    "nursingCarePlans": [],
+    "progressNotes": []
+  }
+}

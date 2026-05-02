@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - Lifeline Medical Center</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .navigator-container {
+            display: flex;
+            gap: 20px;
+        }
+        .navigator-card {
+            border: 2px solid var(--navy-blue);
+            border-radius: 8px;
+            background-color: #fcfcfc;
+            flex: 1;
+        }
+        .navigator-header {
+            background-color: #eef2f5;
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--navy-blue);
+            font-weight: bold;
+            color: var(--navy-blue);
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+        .navigator-body {
+            padding: 15px;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            flex: 1;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 6px;
+            font-family: inherit;
+        }
+        .checklist-item {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            color: #444;
+        }
+        .checklist-item input {
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-layout">
+    <header class="app-header">
+        <div class="header-left">
+            <img src="icon/logo.png" class="header-avatar-small"></img>
+            <h1>Lifeline Medical Center</h1>
+        </div>
+        <div class="header-right dropdown-container">
+            <div class="profile-icon" id="profile-btn">👤</div>
+            <div class="dropdown-menu" id="profile-dropdown">
+                <div class="dropdown-header">
+                    <strong id="dropdown-username">User</strong>
+                    <div id="dropdown-email" class="dropdown-email-text">user@example.com</div>
+                </div>
+                <hr>
+                <a href="profile.html" class="dropdown-item">👤 Profile</a>
+                <a href="#" id="logout-btn" class="dropdown-item text-danger">🚪 Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <div class="dash-title-wrapper">
+            <div>
+                 <h1 class="page-title">Clinical Documentation System</h1>
+                 <p class="page-subtitle" id="dash-patient-subtitle" style="margin-bottom: 0;">Patient: Loading...</p>
+            </div>
+            <a href="patientList.html" class="btn-add-client" style="padding: 8px 25px;">Change Patient</a>
+        </div>
+
+        <div class="dashboard-layout" style="display: flex;">
+            <div class="sidebar">
+                <a href="patientDashboard.html">Demographics</a>
+                <a href="medicalHistory.html">Medical History</a>
+                <a href="flowsheet.html">Flowsheet</a>
+                <a href="results.html">Results</a>
+                <a href="mar.html">MAR</a>
+                <a href="careplan.html">Care Plan</a>
+                <a href="navigator.html" class="active">Navigator</a>
+            </div>
+            
+            <div style="padding-left: 40px; color: var(--text-primary); flex: 1;">
+                 <div class="demo-main-container" id="nav-module" style="background-color: #9ebfd3; border-color: var(--navy-blue);">
+                     <h2 style="margin-bottom: 20px; font-size: 1.35rem; color: var(--navy-blue);">
+                        <span style="font-size: 1.5rem; margin-right: 10px; vertical-align: middle;">📄</span>Discharge Navigator
+                     </h2>
+                     
+                     <div class="navigator-container">
+                         <!-- Left panel: Discharge Info -->
+                         <div class="navigator-card">
+                             <div class="navigator-header">Discharge Information</div>
+                             <div class="navigator-body" id="nav-info-form">
+                                 <div class="form-row">
+                                     <div class="form-group"><label>Discharge Date</label><input type="date" id="nav-date"></div>
+                                     <div class="form-group"><label>Discharge Time</label><input type="time" id="nav-time"></div>
+                                     <div class="form-group"><label>Accompanied By</label><input type="text" id="nav-acc"></div>
+                                 </div>
+                                 <div class="form-row">
+                                     <div class="form-group"><label>Discharge Type</label>
+                                         <select id="nav-type">
+                                             <option value="Home">Home</option>
+                                             <option value="Home with Homecare">Home with Homecare</option>
+                                             <option value="Transfer to SNF">Transfer to SNF</option>
+                                             <option value="Transfer to Rehab">Transfer to Rehab</option>
+                                             <option value="AMA">AMA</option>
+                                             <option value="Expired">Expired</option>
+                                         </select>
+                                     </div>
+                                     <div class="form-group"><label>Follow-up Appointment</label><input type="text" id="nav-fup" placeholder="E.g. Primary Care in 1 week"></div>
+                                 </div>
+                                 <div class="form-row" style="margin-top: 10px;">
+                                     <div class="form-group"><label>Warning Signs to Watch</label><textarea id="nav-warn" rows="2" placeholder="Fever, increasing pain, etc..."></textarea></div>
+                                 </div>
+                                 <div class="form-row" style="margin-top: 10px;">
+                                     <div class="form-group"><label>Discharge Instructions</label><textarea id="nav-ins" rows="3"></textarea></div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+                     <div style="text-align: right; margin-top: 20px;">
+                         <button type="button" id="edit-nav" class="btn-add-client" style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
+                         <button type="button" id="cancel-nav" class="btn-add-client" style="background-color: #95a5a6; margin-right: 10px; display: none;">❌ Cancel</button>
+                         <button type="button" class="btn-add-client" id="save-nav" style="background-color: var(--navy-blue); display: none;">💾 Save</button>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="global-footer">
+        <div class="footer-left">
+            <img src="icon/logo.png" class="footer-avatar-small"></img>
+            <div class="footer-brand">
+                <h4>Lifeline</h4>
+                <span>&copy; 2026 Lifeline Medical Center.</span>
+            </div>
+        </div>
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul><li><a href="#">Help Center</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul><li><a href="#">Privacy Policy</a></li></ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="patient.js"></script>
+<script src="profile-dropdown.js"></script>
+<script src="navigator.js"></script>
+</body>
+</html>

@@ -321,14 +321,14 @@ button:hover {
 }
 
 .page-title {
-    color: var(--white);
+    color: var(--black);
     font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 5px;
 }
 
 .page-subtitle {
-    color: var(--white);
+    color: var(--black);
     font-size: 1.1rem;
     margin-bottom: 30px;
 }
@@ -481,7 +481,7 @@ button:hover {
 }
 
 .sidebar a {
-    color: var(--white);
+    color: var(--black);
     text-decoration: none;
     font-size: 1.1rem;
     font-weight: 700;

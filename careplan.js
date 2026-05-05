@@ -95,7 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const oInput = document.createElement('input'); oInput.type = 'hidden'; oInput.className = 'pn-o'; oInput.value = note.o || '';
             const aInput = document.createElement('input'); aInput.type = 'hidden'; aInput.className = 'pn-a'; aInput.value = note.a || '';
             const pInput = document.createElement('input'); pInput.type = 'hidden'; pInput.className = 'pn-p'; pInput.value = note.p || '';
-            tr.append(sInput, oInput, aInput, pInput);
+            const ordersInput = document.createElement('input'); ordersInput.type = 'hidden'; ordersInput.className = 'pn-orders'; ordersInput.value = note.orders || '';
+            tr.append(sInput, oInput, aInput, pInput, ordersInput);
             
             tr.addEventListener('click', () => {
                 // Update form view
@@ -109,11 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('pn-view-o').innerHTML = `<textarea style="width:100%; border:1px solid var(--navy-blue);" rows="3" onchange="document.querySelectorAll('.pn-o')[${index}].value=this.value">${oInput.value}</textarea>`;
                     document.getElementById('pn-view-a').innerHTML = `<textarea style="width:100%; border:1px solid var(--navy-blue);" rows="3" onchange="document.querySelectorAll('.pn-a')[${index}].value=this.value">${aInput.value}</textarea>`;
                     document.getElementById('pn-view-p').innerHTML = `<textarea style="width:100%; border:1px solid var(--navy-blue);" rows="3" onchange="document.querySelectorAll('.pn-p')[${index}].value=this.value">${pInput.value}</textarea>`;
+                    document.getElementById('pn-view-orders').innerHTML = `<textarea style="width:100%; border:1px solid var(--navy-blue);" rows="3" onchange="document.querySelectorAll('.pn-orders')[${index}].value=this.value">${ordersInput.value}</textarea>`;
                 } else {
                     document.getElementById('pn-view-s').textContent = sInput.value || '-';
                     document.getElementById('pn-view-o').textContent = oInput.value || '-';
                     document.getElementById('pn-view-a').textContent = aInput.value || '-';
                     document.getElementById('pn-view-p').textContent = pInput.value || '-';
+                    document.getElementById('pn-view-orders').textContent = ordersInput.value || '-';
                 }
                 
                 // Highlight row
@@ -134,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('pn-view-o').textContent = '-';
             document.getElementById('pn-view-a').textContent = '-';
             document.getElementById('pn-view-p').textContent = '-';
+            document.getElementById('pn-view-orders').textContent = '-';
         }
     };
 
@@ -142,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dateStr = today.toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' });
         const timeStr = today.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
         progressNotesData.push({
-            date: dateStr, time: timeStr, author: 'Current User', noteType: 'Nursing Note', summary: 'New note', s:'', o:'', a:'', p:''
+            date: dateStr, time: timeStr, author: 'Current User', noteType: 'Nursing Note', summary: 'New note', s:'', o:'', a:'', p:'', orders:''
         });
         renderProgressNotes();
         pnModule(true); // Ensure new elements are in edit mode
@@ -164,7 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
             s: tr.querySelector('.pn-s').value,
             o: tr.querySelector('.pn-o').value,
             a: tr.querySelector('.pn-a').value,
-            p: tr.querySelector('.pn-p').value
+            p: tr.querySelector('.pn-p').value,
+            orders: tr.querySelector('.pn-orders').value
         }));
 
         try {

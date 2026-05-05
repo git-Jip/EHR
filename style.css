@@ -460,6 +460,21 @@ button:hover {
     border: 1px solid #777;
 }
 
+.btn-delete {
+    background: #FFCDD2;
+    color: #C62828;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    border: 1px solid #C62828;
+    margin-left: 10px;
+}
+
+.btn-delete:hover {
+    background: #EF5350;
+    color: var(--white);
+}
+
 /* === PATIENT DASHBOARD (Image 3) === */
 .dashboard-layout {
     display: flex;

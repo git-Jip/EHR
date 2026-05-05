@@ -366,6 +366,52 @@ app.post('/api/navigator', (req, res) => {
     }
 });
 
+app.delete('/api/patient/:id', (req, res) => {
+    const { id } = req.params;
+    if (!id) return res.status(400).json({ success: false, message: 'Patient ID required' });
+
+    try {
+        // 1. Remove from patient.csv
+        const fileContent = fs.readFileSync(PATIENT_CSV_FILE, 'utf-8');
+        const lines = fileContent.split('\n').filter(line => line.trim() !== '');
+        const updatedLines = lines.filter(line => {
+            const rowArr = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+            return rowArr[0] !== id;
+        });
+        fs.writeFileSync(PATIENT_CSV_FILE, updatedLines.join('\n') + '\n');
+
+        // 2. Remove from clinical JSON files
+        const jsonFiles = [
+            MEDICAL_HISTORY_FILE,
+            FLOWSHEET_FILE,
+            RESULTS_FILE,
+            MAR_FILE,
+            CAREPLAN_FILE,
+            NAVIGATOR_FILE
+        ];
+
+        jsonFiles.forEach(filePath => {
+            if (fs.existsSync(filePath)) {
+                try {
+                    const content = fs.readFileSync(filePath, 'utf-8');
+                    const data = content ? JSON.parse(content) : {};
+                    if (data[id]) {
+                        delete data[id];
+                        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+                    }
+                } catch (e) {
+                    console.error(`Error cleaning up ${filePath}:`, e);
+                }
+            }
+        });
+
+        res.json({ success: true, message: 'Patient and all associated data deleted successfully!' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: 'Server error during deletion' });
+    }
+});
+
 if (require.main === module) {
     app.listen(PORT, () => {
         console.log(`Node Server API running on http://localhost:${PORT}`);

@@ -43,13 +43,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="patient-icon">👤</span>
                     <span>${p['First Name']} ${p['Last Name']} (ID - ${p['ID']})</span>
                 </div>
-                <button class="btn-status">Status</button>
+                <div class="patient-actions">
+                    <button class="btn-status">Status</button>
+                    <button class="btn-delete" data-id="${p['ID']}">🗑️ Delete</button>
+                </div>
             `;
             // Redirect to patient dashboard on click
             row.addEventListener('click', () => {
                 localStorage.setItem('selectedPatientId', p['ID']);
                 window.location.href = 'patientDashboard.html';
             });
+
+            // Delete functionality
+            const deleteBtn = row.querySelector('.btn-delete');
+            deleteBtn.addEventListener('click', async (e) => {
+                e.stopPropagation(); // Prevent redirect
+                if (confirm(`Are you sure you want to delete patient ${p['First Name']} ${p['Last Name']}? All clinical data will be lost.`)) {
+                    try {
+                        const response = await fetch(`${window.API_BASE}/patient/${encodeURIComponent(p['ID'])}`, { method: 'DELETE' });
+                        const result = await response.json();
+                        if (result.success) {
+                            alert('Patient deleted successfully');
+                            fetchPatients(); // Refresh list
+                        } else {
+                            alert('Failed to delete patient: ' + result.message);
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        alert('Error connecting to server');
+                    }
+                }
+            });
+
             patientListDOM.appendChild(row);
         });
     };

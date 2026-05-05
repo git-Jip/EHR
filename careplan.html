@@ -67,7 +67,7 @@
                 <a href="careplan.html" class="active">Care Plan</a>
                 <a href="navigator.html">Navigator</a>
             </div>
-                        <div style="padding-left: 40px; color: var(--text-primary); flex: 1;">
+            <div style="padding-left: 40px; color: var(--text-primary); flex: 1;">
                  <div class="demo-main-container" id="careplan-module">
                      <div style="display: flex; justify-content: space-between; align-items:center; margin-bottom: 20px;">
                          <div>
@@ -84,53 +84,56 @@
                      </div>
 
                      <div class="tab-content active" id="progress-notes">
-                         <div style="display: flex; gap: 20px;">
-                             <!-- Left Side Table -->
-                             <div style="flex: 2; overflow-y: auto; max-height: 500px;">
-                                 <table class="demo-table" style="border: 1px solid var(--navy-blue);">
-                                     <thead>
-                                         <tr>
-                                             <th>DATE</th>
-                                             <th>TIME</th>
-                                             <th>AUTHOR</th>
-                                             <th>NOTE TYPE</th>
-                                             <th>SUMMARY</th>
-                                         </tr>
-                                     </thead>
-                                     <tbody id="progress-notes-list">
-                                         <!-- Dynamic Rows -->
-                                     </tbody>
-                                 </table>
-                                 <button type="button" class="btn-add-client" id="add-progress-note-btn" style="background-color: var(--navy-blue); margin-top: 15px; display: none;">+ Add Note</button>
-                             </div>
-                             
-                             <!-- Right Side Form -->
-                             <div style="flex: 1; background-color: var(--white); border-radius: 12px; padding: 20px; border: 2px solid var(--navy-blue); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                                 <h3 style="text-align: center; margin-bottom: 15px; font-size: 1.2rem; color: var(--text-primary);">Progress Note Entry Form</h3>
-                                 <div id="pn-form-view" style="font-size: 0.95rem;">
-                                     <div style="margin-bottom: 5px;"><strong>Date:</strong> <span id="pn-view-date">-</span></div>
-                                     <div style="margin-bottom: 5px;"><strong>Time:</strong> <span id="pn-view-time">-</span></div>
-                                     <div style="margin-bottom: 15px;"><strong>Author:</strong> <span id="pn-view-author">-</span></div>
-                                     
-                                     <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Subjective (S):</div>
-                                     <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-s">-</div>
-                                     
-                                     <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Objective (O):</div>
-                                     <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-o">-</div>
-                                     
-                                     <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Assessment (A):</div>
-                                     <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-a">-</div>
-                                     
-                                     <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Plan (P):</div>
-                                     <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-p">-</div>
-                                 </div>
-                             </div>
-                         </div>
-                         <div style="text-align: right; margin-top: 20px;">
-                             <button type="button" id="edit-progress-notes" class="btn-add-client" style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
-                             <button type="button" id="cancel-progress-notes" class="btn-add-client" style="background-color: #95a5a6; margin-right: 10px; display: none;">❌ Cancel</button>
-                             <button type="button" class="btn-add-client" id="save-progress-notes" style="background-color: var(--navy-blue); display: none;">💾 Save</button>
-                         </div>
+                          <div style="display: flex; gap: 20px;">
+                              <!-- Left Side Table -->
+                              <div style="flex: 2; overflow-y: auto; max-height: 500px;">
+                                  <table class="demo-table" style="border: 1px solid var(--navy-blue);">
+                                      <thead>
+                                          <tr>
+                                              <th>DATE</th>
+                                              <th>TIME</th>
+                                              <th>AUTHOR</th>
+                                              <th>NOTE TYPE</th>
+                                              <th>SUMMARY</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody id="progress-notes-list">
+                                          <!-- Dynamic Rows -->
+                                      </tbody>
+                                  </table>
+                                  <button type="button" class="btn-add-client" id="add-progress-note-btn" style="background-color: var(--navy-blue); margin-top: 15px; display: none;">+ Add Note</button>
+                              </div>
+                              
+                              <!-- Right Side Form -->
+                              <div style="flex: 1; background-color: var(--white); border-radius: 12px; padding: 20px; border: 2px solid var(--navy-blue); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                                  <h3 style="text-align: center; margin-bottom: 15px; font-size: 1.2rem; color: var(--text-primary);">Progress Note Entry Form</h3>
+                                  <div id="pn-form-view" style="font-size: 0.95rem;">
+                                      <div style="margin-bottom: 5px;"><strong>Date:</strong> <span id="pn-view-date">-</span></div>
+                                      <div style="margin-bottom: 5px;"><strong>Time:</strong> <span id="pn-view-time">-</span></div>
+                                      <div style="margin-bottom: 15px;"><strong>Author:</strong> <span id="pn-view-author">-</span></div>
+                                      
+                                      <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Subjective (S):</div>
+                                      <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-s">-</div>
+                                      
+                                      <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Objective (O):</div>
+                                      <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-o">-</div>
+                                      
+                                      <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Assessment (A):</div>
+                                      <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-a">-</div>
+                                      
+                                      <div style="color: #c0392b; font-weight: bold; margin-top: 10px;">Plan (P):</div>
+                                      <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-p">-</div>
+
+                                      <div style="color: #2980b9; font-weight: bold; margin-top: 10px;">Doctor's order:</div>
+                                      <div style="margin-bottom: 10px; padding-left: 10px;" id="pn-view-orders">-</div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div style="text-align: right; margin-top: 20px;">
+                              <button type="button" id="edit-progress-notes" class="btn-add-client" style="background-color: #f39c12; margin-right: 10px;">✏️ Edit</button>
+                              <button type="button" id="cancel-progress-notes" class="btn-add-client" style="background-color: #95a5a6; margin-right: 10px; display: none;">❌ Cancel</button>
+                              <button type="button" class="btn-add-client" id="save-progress-notes" style="background-color: var(--navy-blue); display: none;">💾 Save</button>
+                          </div>
                      </div>
 
                      <div class="tab-content" id="nursing-care-plan">

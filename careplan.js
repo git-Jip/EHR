@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pnList = document.getElementById('progress-notes-list');
     let progressNotesData = [];
     
-    const pnModule = setupEditModule('progress-notes', 'edit-progress-notes', 'cancel-progress-notes', 'save-progress-notes', () => loadCarePlan(), ['add-progress-note-btn'], 'progress-notes-list', null, (isEdit) => {
+    const pnModule = setupEditModule('progress-notes', 'edit-progress-notes', 'cancel-progress-notes', 'save-progress-notes', () => loadCarePlan(), ['add-progress-note-btn'], 'progress-notes-list', '.pn-action-col', (isEdit) => {
         if (isEdit && progressNotesData.length > 0) {
             let activeTr = Array.from(pnList.children).find(tr => tr.style.backgroundColor);
             if (activeTr) activeTr.click();
@@ -89,6 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td><input type="text" class="pn-author" value="${note.author || ''}" readonly style="width: 100%;"></td>
                 <td><input type="text" class="pn-type" value="${note.noteType || ''}" readonly style="width: 100%;"></td>
                 <td><input type="text" class="pn-summary" value="${note.summary || ''}" readonly style="width: 100%;"></td>
+                <td class="pn-action-col" style="display: none; text-align: center;">
+                    <button type="button" class="btn-delete" style="background:transparent; border:none; cursor:pointer;" title="Remove Note">🗑️</button>
+                </td>
             `;
             // Hidden data fields for SOAP
             const sInput = document.createElement('input'); sInput.type = 'hidden'; sInput.className = 'pn-s'; sInput.value = note.s || '';
@@ -98,6 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const ordersInput = document.createElement('input'); ordersInput.type = 'hidden'; ordersInput.className = 'pn-orders'; ordersInput.value = note.orders || '';
             tr.append(sInput, oInput, aInput, pInput, ordersInput);
             
+            tr.querySelector('.btn-delete').addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (confirm('Delete this progress note?')) {
+                    tr.remove();
+                }
+            });
+
             tr.addEventListener('click', () => {
                 // Update form view
                 document.getElementById('pn-view-date').textContent = tr.querySelector('.pn-date').value || '-';
